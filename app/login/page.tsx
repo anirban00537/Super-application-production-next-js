@@ -1,16 +1,45 @@
 "use client";
 
-import { useState } from "react";
+import { Database } from "@/lib/database.types";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { ChangeEvent, FormEvent, useState } from "react";
+import { toast } from "react-toastify";
 
 const page = () => {
-  const [credentials, setCredentials] = useState();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const router = useRouter();
+  const supabase = createClientComponentClient<Database>();
+
+  const handleSignIn = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    let { data, error }: any = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+    console.log(error, "This is error");
+    if (error) {
+      toast.error("Login failed");
+    } else {
+      console.log("Sign in successful!");
+      toast.success("Logged in successfully!");
+      router.push("/");
+    }
+  };
+
+  const handleSignOut = async () => {
+    await supabase.auth.signOut();
+    router.refresh();
+  };
   return (
     <section className="bg-white">
       <div className="lg:grid lg:min-h-screen lg:grid-cols-12">
         <section className="relative flex h-32 items-end bg-gray-900 lg:col-span-5 lg:h-full xl:col-span-6">
           <img
             alt="Night"
-            src="https://images.unsplash.com/photo-1617195737496-bc30194e3a19?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
+            src="https://images.unsplash.com/photo-1636956026491-86a9da7001c9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
             className="absolute inset-0 h-full w-full object-cover opacity-80"
           />
           <div className="hidden lg:relative lg:block lg:p-12">
@@ -68,7 +97,13 @@ const page = () => {
                 Eligendi nam dolorum aliquam, quibusdam aperiam voluptatum.
               </p>
             </div>
-            <form action="#" className="mt-8 grid grid-cols-6 gap-6">
+            <form
+              action="#"
+              className="mt-8 grid grid-cols-6 gap-6"
+              onSubmit={(e: FormEvent<HTMLFormElement>) => {
+                handleSignIn(e);
+              }}
+            >
               <div className="col-span-12">
                 <label
                   htmlFor="Email"
@@ -80,6 +115,10 @@ const page = () => {
                   type="email"
                   id="Email"
                   name="email"
+                  value={email}
+                  onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                    setEmail(e.target.value);
+                  }}
                   className="w-full px-3 py-2 border rounded"
                   style={{ width: "100%" }}
                 />
@@ -95,6 +134,10 @@ const page = () => {
                   type="password"
                   id="Password"
                   name="password"
+                  value={password}
+                  onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                    setPassword(e.target.value);
+                  }}
                   className="w-full px-3 py-2 border rounded"
                   style={{ width: "100%" }}
                 />
@@ -104,10 +147,10 @@ const page = () => {
                   Login
                 </button>
                 <p className="mt-4 text-sm text-gray-500">
-                  Already have an account?
-                  <a href="#" className="text-gray-700 underline">
+                  Don't have an account?
+                  <Link href="/signup" className="text-gray-700 underline">
                     Signup
-                  </a>
+                  </Link>
                 </p>
               </div>
             </form>

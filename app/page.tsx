@@ -1,6 +1,34 @@
+"use client";
+
+import { Database } from "@/lib/database.types";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import Image from "next/image";
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 export default function Home() {
+  const [userCredentials, setUserCredentials] = useState<any>(null);
+  const supabase = createClientComponentClient<Database>();
+  const fetchUserCredentials = async () => {
+    try {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+
+      console.log(user, "user");
+      if (user) {
+        setUserCredentials(user);
+      }
+    } catch (error: any) {
+      toast.error(error);
+    } finally {
+    }
+  };
+  useEffect(() => {
+    fetchUserCredentials();
+  }, []);
+
   return (
     <>
       <section className="bg-gray-50">
