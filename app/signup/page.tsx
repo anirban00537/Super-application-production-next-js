@@ -5,6 +5,7 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, FormEvent, FormEventHandler, useState } from "react";
+import { toast } from "react-toastify";
 
 const page = () => {
   const [email, setEmail] = useState("");
@@ -20,6 +21,13 @@ const page = () => {
         emailRedirectTo: `${location.origin}/auth/callback`,
       },
     });
+    if (error) {
+      toast.error("Signu failed");
+    } else {
+      console.log("Sign up successful!");
+      toast.success("Logged in successfully!");
+      router.push("/");
+    }
   };
   return (
     <section className="bg-white">
