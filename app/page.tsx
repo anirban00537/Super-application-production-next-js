@@ -1,5 +1,6 @@
 "use client";
 
+import Navbar from "@/components/Navbar/index.comp";
 import { Database } from "@/lib/database.types";
 import MiddleSection from "@/sections/Home/middle.section";
 import TopSection from "@/sections/Home/top.sectionn";
@@ -31,6 +32,7 @@ export default function Home() {
 
   return (
     <>
+      <Navbar />
       <TopSection />
       <MiddleSection />
     </>

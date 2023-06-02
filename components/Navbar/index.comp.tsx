@@ -1,4 +1,5 @@
-import React from 'react'
+import Link from "next/link";
+import React from "react";
 
 const Navbar = () => {
   return (
@@ -6,7 +7,7 @@ const Navbar = () => {
       <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           <div className="md:flex md:items-center md:gap-12">
-            <a className="block text-green-600" href="/">
+            <a className="block text-orange-600" href="/">
               <span className="sr-only">Home</span>
               <svg
                 className="h-8"
@@ -29,7 +30,7 @@ const Navbar = () => {
                     className="text-gray-500 transition hover:text-gray-500/75"
                     href="/"
                   >
-                    About
+                    Pricing
                   </a>
                 </li>
                 <li>
@@ -37,7 +38,7 @@ const Navbar = () => {
                     className="text-gray-500 transition hover:text-gray-500/75"
                     href="/"
                   >
-                    Careers
+                    Examples
                   </a>
                 </li>
                 <li>
@@ -45,31 +46,7 @@ const Navbar = () => {
                     className="text-gray-500 transition hover:text-gray-500/75"
                     href="/"
                   >
-                    History
-                  </a>
-                </li>
-                <li>
-                  <a
-                    className="text-gray-500 transition hover:text-gray-500/75"
-                    href="/"
-                  >
-                    Services
-                  </a>
-                </li>
-                <li>
-                  <a
-                    className="text-gray-500 transition hover:text-gray-500/75"
-                    href="/"
-                  >
-                    Projects
-                  </a>
-                </li>
-                <li>
-                  <a
-                    className="text-gray-500 transition hover:text-gray-500/75"
-                    href="/"
-                  >
-                    Blog
+                    Wall of love
                   </a>
                 </li>
               </ul>
@@ -77,19 +54,19 @@ const Navbar = () => {
           </div>
           <div className="flex items-center gap-4">
             <div className="sm:flex sm:gap-4">
-              <a
-                className="rounded-md bg-green-600 px-5 py-2.5 text-sm font-medium text-white shadow"
-                href="/"
+              <Link
+                className="rounded-md bg-orange-600 px-5 py-2.5 text-sm font-medium text-white shadow"
+                href="/login"
               >
                 Login
-              </a>
+              </Link>
               <div className="hidden sm:flex">
-                <a
-                  className="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-green-600"
-                  href="/"
+                <Link
+                  className="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-orange-600"
+                  href="/signup"
                 >
-                  Register
-                </a>
+                  Get Started For Free
+                </Link>
               </div>
             </div>
             <div className="block md:hidden">
@@ -115,6 +92,6 @@ const Navbar = () => {
       </div>
     </header>
   );
-}
+};
 
-export default Navbar
+export default Navbar;

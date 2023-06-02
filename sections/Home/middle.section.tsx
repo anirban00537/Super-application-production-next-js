@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 const MiddleSection = () => {
   return (
@@ -16,12 +16,12 @@ const MiddleSection = () => {
         </div>
         <div className="mt-8 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
           <a
-            className="block rounded-xl border border-gray-200 p-8 shadow-xl transition hover:border-green-500/10 hover:shadow-green-500/10"
+            className="block rounded-xl border border-gray-200 p-8 shadow-xl transition hover:border-orange-500/10 hover:shadow-orange-500/10"
             href="/services/digital-campaigns"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-10 w-10 text-green-500"
+              className="h-10 w-10 text-orange-500"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -45,12 +45,12 @@ const MiddleSection = () => {
             </p>
           </a>
           <a
-            className="block rounded-xl border border-gray-200 p-8 shadow-xl transition hover:border-green-500/10 hover:shadow-green-500/10"
+            className="block rounded-xl border border-gray-200 p-8 shadow-xl transition hover:border-orange-500/10 hover:shadow-orange-500/10"
             href="/services/digital-campaigns"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-10 w-10 text-green-500"
+              className="h-10 w-10 text-orange-500"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -74,12 +74,12 @@ const MiddleSection = () => {
             </p>
           </a>
           <a
-            className="block rounded-xl border border-gray-200 p-8 shadow-xl transition hover:border-green-500/10 hover:shadow-green-500/10"
+            className="block rounded-xl border border-gray-200 p-8 shadow-xl transition hover:border-orange-500/10 hover:shadow-orange-500/10"
             href="/services/digital-campaigns"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-10 w-10 text-green-500"
+              className="h-10 w-10 text-orange-500"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -103,12 +103,12 @@ const MiddleSection = () => {
             </p>
           </a>
           <a
-            className="block rounded-xl border border-gray-200 p-8 shadow-xl transition hover:border-green-500/10 hover:shadow-green-500/10"
+            className="block rounded-xl border border-gray-200 p-8 shadow-xl transition hover:border-orange-500/10 hover:shadow-orange-500/10"
             href="/services/digital-campaigns"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-10 w-10 text-green-500"
+              className="h-10 w-10 text-orange-500"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -132,12 +132,12 @@ const MiddleSection = () => {
             </p>
           </a>
           <a
-            className="block rounded-xl border border-gray-200 p-8 shadow-xl transition hover:border-green-500/10 hover:shadow-green-500/10"
+            className="block rounded-xl border border-gray-200 p-8 shadow-xl transition hover:border-orange-500/10 hover:shadow-orange-500/10"
             href="/services/digital-campaigns"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-10 w-10 text-green-500"
+              className="h-10 w-10 text-orange-500"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -161,12 +161,12 @@ const MiddleSection = () => {
             </p>
           </a>
           <a
-            className="block rounded-xl border border-gray-200 p-8 shadow-xl transition hover:border-green-500/10 hover:shadow-green-500/10"
+            className="block rounded-xl border border-gray-200 p-8 shadow-xl transition hover:border-orange-500/10 hover:shadow-orange-500/10"
             href="/services/digital-campaigns"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-10 w-10 text-green-500"
+              className="h-10 w-10 text-orange-500"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -193,7 +193,7 @@ const MiddleSection = () => {
         <div className="mt-12 text-center">
           <a
             href="#"
-            className="inline-block rounded bg-green-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-green-700 focus:outline-none focus:ring focus:ring-yellow-400"
+            className="inline-block rounded bg-orange-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-orange-700 focus:outline-none focus:ring focus:ring-yellow-400"
           >
             Get Started Today
           </a>
@@ -201,6 +201,6 @@ const MiddleSection = () => {
       </div>
     </section>
   );
-}
+};
 
-export default MiddleSection
+export default MiddleSection;
