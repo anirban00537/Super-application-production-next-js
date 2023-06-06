@@ -10,6 +10,8 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import LoadingComponent from "@/sections/Loading";
 const inter = Inter({ subsets: ["latin"] });
 import "flowbite/dist/flowbite.css";
+import { useRouter } from "next/navigation";
+import { Providers } from "@/state/provider";
 
 export const metadata = {
   title: "Feedlio",
@@ -23,6 +25,7 @@ export default function RootLayout({
 }) {
   const [loading, setLoading] = useState(true);
   const [userCredentials, setUserCredentials] = useState<any>(null);
+  const router = useRouter();
   const supabase = createClientComponentClient<Database>();
   const fetchUserCredentials = async () => {
     try {
@@ -34,6 +37,9 @@ export default function RootLayout({
         setUserCredentials(user);
         console.log(user, "useruseruser");
         setLoading(false);
+      } else {
+        await router.push("/");
+        await setLoading(false);
       }
     } catch (error: any) {
       toast.error(error);
@@ -48,7 +54,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <ToastContainer />
 
-        {loading ? <LoadingComponent /> : children}
+        {loading ? <LoadingComponent /> : <Providers>{children}</Providers>}
       </body>
     </html>
   );
