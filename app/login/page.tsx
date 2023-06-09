@@ -4,7 +4,8 @@ import { useSignin } from "@/hooks/authentication.hook";
 import Link from "next/link";
 
 const page = () => {
-const { errors, handleSubmit, register, handleLogin, isLoading } = useSignin();
+  const { errors, handleSubmit, register, handleLogin, isLoading } =
+    useSignin();
 
   return (
     <section className="bg-white">
@@ -71,7 +72,6 @@ const { errors, handleSubmit, register, handleLogin, isLoading } = useSignin();
               </p>
             </div>
             <form
-              action="#"
               className="mt-8 grid grid-cols-6 gap-6"
               onSubmit={handleSubmit((data) => {
                 handleLogin(data.email, data.password);
@@ -87,9 +87,9 @@ const { errors, handleSubmit, register, handleLogin, isLoading } = useSignin();
                 <input
                   type="email"
                   id="Email"
-                  name="email"
                   className="w-full px-3 py-2 border rounded"
                   style={{ width: "100%" }}
+                  {...register("email", { required: true })}
                 />
                 {errors.email?.type === "required" && (
                   <p role="alert">Email is required</p>
@@ -105,9 +105,9 @@ const { errors, handleSubmit, register, handleLogin, isLoading } = useSignin();
                 <input
                   type="password"
                   id="Password"
-                  name="password"
                   className="w-full px-3 py-2 border rounded"
                   style={{ width: "100%" }}
+                  {...register("password", { required: true })}
                 />
                 {errors.password?.type === "required" && (
                   <p role="alert">Password is required</p>
