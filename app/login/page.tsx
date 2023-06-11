@@ -1,38 +1,11 @@
 "use client";
 
-import { Database } from "@/lib/database.types";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { useSignin } from "@/hooks/authentication.hook";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { ChangeEvent, FormEvent, useState } from "react";
-import { toast } from "react-toastify";
 
 const page = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const router = useRouter();
-  const supabase = createClientComponentClient<Database>();
-
-  const handleSignIn = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    let { data, error }: any = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-    console.log(error, "This is error");
-    if (error) {
-      toast.error("Login failed");
-    } else {
-      console.log("Sign in successful!");
-      toast.success("Logged in successfully!");
-      router.push("/");
-    }
-  };
-
-  const handleSignOut = async () => {
-    await supabase.auth.signOut();
-    router.refresh();
-  };
+  const { errors, handleSubmit, register, handleLogin, isLoading } =
+    useSignin();
   return (
     <section className="bg-white">
       <div className="lg:grid lg:min-h-screen lg:grid-cols-12">
@@ -100,9 +73,9 @@ const page = () => {
             <form
               action="#"
               className="mt-8 grid grid-cols-6 gap-6"
-              onSubmit={(e: FormEvent<HTMLFormElement>) => {
-                handleSignIn(e);
-              }}
+              onSubmit={handleSubmit((data: any) => {
+                handleLogin(data.email, data.password);
+              })}
             >
               <div className="col-span-12">
                 <label
@@ -114,14 +87,13 @@ const page = () => {
                 <input
                   type="email"
                   id="Email"
-                  name="email"
-                  value={email}
-                  onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                    setEmail(e.target.value);
-                  }}
+                  {...register("email", { required: true })}
                   className="w-full px-3 py-2 border rounded"
                   style={{ width: "100%" }}
                 />
+                {errors.email?.type === "required" && (
+                  <p role="alert">Email is required</p>
+                )}
               </div>
               <div className="col-span-12">
                 <label
@@ -133,14 +105,13 @@ const page = () => {
                 <input
                   type="password"
                   id="Password"
-                  name="password"
-                  value={password}
-                  onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                    setPassword(e.target.value);
-                  }}
+                  {...register("password", { required: true })}
                   className="w-full px-3 py-2 border rounded"
                   style={{ width: "100%" }}
                 />
+                {errors.password?.type === "required" && (
+                  <p role="alert">Password is required</p>
+                )}
               </div>
               <div className="col-span-6">
                 <button className="inline-block shrink-0 rounded-md border border-blue-600 bg-blue-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring active:text-blue-500">
