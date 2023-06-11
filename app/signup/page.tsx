@@ -1,34 +1,14 @@
 "use client";
 
-import { Database } from "@/lib/database.types";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { useSignup } from "@/hooks/authentication.hook";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, FormEvent, FormEventHandler, useState } from "react";
 import { toast } from "react-toastify";
 
 const page = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const router = useRouter();
-  const supabase = createClientComponentClient<Database>();
-  const handleSignUp = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    let { data, error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        emailRedirectTo: `${location.origin}/auth/callback`,
-      },
-    });
-    if (error) {
-      toast.error("Signu failed");
-    } else {
-      console.log("Sign up successful!");
-      toast.success("Logged in successfully!");
-      router.push("/");
-    }
-  };
+  const { errors, handleSubmit, register, handleSignup, isLoading } =
+    useSignup();
   return (
     <section className="bg-white">
       <div className="lg:grid lg:min-h-screen lg:grid-cols-12">
@@ -96,9 +76,15 @@ const page = () => {
             <form
               action="#"
               className="mt-8 grid grid-cols-6 gap-6"
-              onSubmit={(e: FormEvent<HTMLFormElement>) => {
-                handleSignUp(e);
-              }}
+              onSubmit={handleSubmit((data) => {
+                handleSignup(
+                  data.email,
+                  data.password,
+                  data.first_name,
+                  data.last_name,
+                  data.nick_name
+                );
+              })}
             >
               <div className="col-span-12">
                 <label
@@ -108,16 +94,15 @@ const page = () => {
                   Email
                 </label>
                 <input
+                  id="email"
                   type="email"
-                  id="Email"
-                  name="email"
-                  value={email}
-                  onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                    setEmail(e.target.value);
-                  }}
-                  className="w-full px-3 py-2 border rounded"
-                  style={{ width: "100%" }}
+                  className="form-input"
+                  placeholder="Enter Email"
+                  {...register("email", { required: true })}
                 />
+                {errors.email?.type === "required" && (
+                  <p role="alert">Email is required</p>
+                )}
               </div>
               <div className="col-span-12">
                 <label
@@ -127,16 +112,70 @@ const page = () => {
                   Password
                 </label>
                 <input
+                  id="password"
                   type="password"
-                  id="Password"
-                  name="password"
-                  value={password}
-                  onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                    setPassword(e.target.value);
-                  }}
-                  className="w-full px-3 py-2 border rounded"
-                  style={{ width: "100%" }}
+                  className="form-input"
+                  placeholder="Enter Password"
+                  {...register("password", { required: true })}
                 />
+                {errors.password?.type === "required" && (
+                  <p role="alert">Password is required</p>
+                )}
+              </div>
+             
+              <div className="col-span-12">
+                <label
+                  htmlFor="password"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  First Name
+                </label>
+                <input
+                  id="first_name"
+                  type="text"
+                  className="form-input"
+                  placeholder="Enter First Name"
+                  {...register("first_name", { required: true })}
+                />
+                {errors.email?.type === "required" && (
+                  <p role="alert">First Name is required</p>
+                )}
+              </div>
+              <div className="col-span-12">
+                <label
+                  htmlFor="password"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Last Name
+                </label>
+                <input
+                  id="last_name"
+                  type="text"
+                  className="form-input"
+                  placeholder="Enter last Name"
+                  {...register("last_name", { required: true })}
+                />
+                {errors.email?.type === "required" && (
+                  <p role="alert">last Name is required</p>
+                )}
+              </div>
+              <div className="col-span-12">
+                <label
+                  htmlFor="password"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Nick Name
+                </label>
+                <input
+                  id="nick_name"
+                  type="text"
+                  className="form-input"
+                  placeholder="Enter Nick Name"
+                  {...register("nick_name", { required: true })}
+                />
+                {errors.email?.type === "required" && (
+                  <p role="alert">Nick Name is required</p>
+                )}
               </div>
               <div className="col-span-6">
                 <button className="inline-block shrink-0 rounded-md border border-blue-600 bg-blue-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring active:text-blue-500">
