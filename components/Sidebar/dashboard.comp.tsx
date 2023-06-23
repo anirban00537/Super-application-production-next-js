@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { BiSolidDashboard } from "react-icons/bi";
+import { BiSolidDashboard, BiSolidNote } from "react-icons/bi";
 import { MdEmojiEvents } from "react-icons/md";
+import { FaBlogger } from "react-icons/fa";
 import { HiTemplate } from "react-icons/hi";
 import { RiProfileFill } from "react-icons/ri";
 export default function DashboardSidebar() {
@@ -48,6 +49,24 @@ export default function DashboardSidebar() {
             </li>
             <li>
               <Link
+                href="/dashboard/blogs"
+                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+              >
+                <FaBlogger size={25} />
+                <span className="ml-3">Blogs</span>
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/dashboard/notes"
+                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+              >
+                <BiSolidNote size={25} />
+                <span className="ml-3">Notes</span>
+              </Link>
+            </li>
+            <li>
+              <Link
                 href="/dashboard/portfolios"
                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
               >
@@ -55,25 +74,6 @@ export default function DashboardSidebar() {
                 <span className="flex-1 ml-3 whitespace-nowrap">
                   Portfolios
                 </span>
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/dashboard/templates"
-                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-              >
-                <HiTemplate size={25} />
-                <span className="flex-1 ml-3 whitespace-nowrap">Templates</span>
-              </Link>
-            </li>
-
-            <li>
-              <Link
-                href="/dashboard/profile"
-                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-              >
-                <RiProfileFill size={25} />
-                <span className="flex-1 ml-3 whitespace-nowrap">Profile</span>
               </Link>
             </li>
           </ul>
