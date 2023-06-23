@@ -10,8 +10,8 @@ import LoadingComponent from "@/sections/Loading";
 import { useCheckAuthState } from "@/hooks/authentication.hook";
 
 const Layout = ({ children }: any) => {
-  const { user, isLoggedIn, loading } = useAppSelector((state) => state.user);
-  useCheckAuthState();
+  const { user, isLoggedIn } = useAppSelector((state) => state.user);
+  const { loading } = useCheckAuthState();
   if (loading) return <LoadingComponent />;
 
   return <div>{children}</div>;

@@ -6,9 +6,16 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { verifyEmailApi ,ResetPasswordApi,forgotPasswordApi,loginApi,signupApi} from "@/service/authentication";
+import {
+  verifyEmailApi,
+  ResetPasswordApi,
+  forgotPasswordApi,
+  loginApi,
+  signupApi,
+} from "@/service/authentication";
 import { setUser } from "@/state/reducer/user";
 import { GetUserProfile } from "@/service/user";
+import { useState } from "react";
 
 export const useSignin = () => {
   const router = useRouter();
@@ -108,25 +115,29 @@ export const useVerifyEmail = () => {
 };
 export const useCheckAuthState = () => {
   const router = useRouter();
+  const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
 
   const { data: userProfile, isLoading: isProfileLoading } = useQuery({
     retry: 0,
     queryKey: ["user"],
     queryFn: () => GetUserProfile(),
-    onSuccess: (data) => {
+    onSuccess: async (data) => {
+      await setLoading(true);
       if (data.success === true) {
-        dispatch(setUser(data.data));
+        await dispatch(setUser(data.data));
+        setLoading(false);
       }
     },
-    onError: () => {
-      router.push("/login");
+    onError: async () => {
+      await router.push("/login");
+      await setLoading(false);
     },
     enabled: !!Cookies.get("token"),
   });
 
   return {
-    isLoading: isProfileLoading,
+    loading: loading,
     user: userProfile?.data,
   };
 };
