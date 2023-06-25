@@ -53,7 +53,7 @@ export default function DashboardSidebar() {
                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
               >
                 <FaBlogger size={25} />
-                <span className="ml-3">Blogs</span>
+                  <span className="ml-3">Blogs</span>
               </Link>
             </li>
             <li>
