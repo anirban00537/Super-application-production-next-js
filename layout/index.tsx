@@ -11,7 +11,7 @@ import { useCheckAuthState } from "@/hooks/authentication.hook";
 
 const Layout = ({ children }: any) => {
   const { user } = useAppSelector((state) => state.user);
-  const { loading } = useCheckAuthState();
+  useCheckAuthState();
   // if (loading) return <LoadingComponent />;
 
   return <div>{children}</div>;

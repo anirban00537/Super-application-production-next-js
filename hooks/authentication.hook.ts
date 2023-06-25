@@ -115,7 +115,6 @@ export const useVerifyEmail = () => {
 };
 export const useCheckAuthState = () => {
   const router = useRouter();
-  const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
 
   const { data: userProfile, isLoading: isProfileLoading } = useQuery({
@@ -123,21 +122,18 @@ export const useCheckAuthState = () => {
     queryKey: ["user"],
     queryFn: () => GetUserProfile(),
     onSuccess: async (data) => {
-      await setLoading(true);
       if (data.success === true) {
         await dispatch(setUser(data.data));
-        setLoading(false);
       }
     },
     onError: async () => {
       await router.push("/login");
-      await setLoading(false);
     },
     enabled: !!Cookies.get("token"),
   });
 
   return {
-    loading: loading,
+    loading: isProfileLoading,
     user: userProfile?.data,
   };
 };
