@@ -6,8 +6,4 @@ export default function middleware(req: NextRequest) {
   if (!verify && req.nextUrl.pathname.startsWith("/dashboard")) {
     return NextResponse.redirect("http://localhost:3001/login");
   }
-
-  //   if (verify && url === "http://localhost:3000/") {
-  //     return NextResponse.redirect("http://localhost:3000/dashboard");
-  //   }
 }
