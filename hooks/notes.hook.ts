@@ -1,19 +1,24 @@
 import { getAllNotes } from "@/service/notes";
 import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export const useGetNotes = () => {
-  const [pagination, setPagination] = useState({
+  let pagination = {
     page: 1,
     limit: 1,
-  });
-  const { data, isLoading } = useQuery({
+  };
+  const { data, isLoading, refetch } = useQuery({
     retry: 0,
-    queryKey: ["get-notes"],
+    queryKey: ["get-notes", pagination.page, pagination.limit],
     queryFn: () => getAllNotes(pagination.page, pagination.limit),
-    onSuccess: async (data) => {
-      console.log(data);
-    },
+    keepPreviousData: true,
   });
-  return { data, isLoading };
+
+  const handlePaginationChange = (page: number, limit = 1) => {
+    pagination.page = page;
+    pagination.limit = limit;
+    refetch();
+  };
+
+  return { data, isLoading, handlePaginationChange };
 };

@@ -4,10 +4,15 @@ import NotesTable from "@/sections/Notes/notesTable.section";
 import React from "react";
 
 const Notes = () => {
-  const { data } = useGetNotes();
+  const { data, handlePaginationChange } = useGetNotes();
   return (
     <div className="p-4 sm:ml-64">
-      <NotesTable />
+      {data?.data && (
+        <NotesTable
+          tableData={data?.data}
+          handlePaginationChange={handlePaginationChange}
+        />
+      )}
     </div>
   );
 };

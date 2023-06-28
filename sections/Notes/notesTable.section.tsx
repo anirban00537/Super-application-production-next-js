@@ -1,8 +1,9 @@
-"use client"
+"use client";
+import Pagination from "@/components/Paginate/index.comp";
 import React, { useState } from "react";
 import { FiInfo } from "react-icons/fi";
 
-const NotesTable = () => {
+const NotesTable = ({ tableData, handlePaginationChange }: any) => {
   const [sortOption, setSortOption] = useState("default");
 
   const handleSortChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -10,6 +11,8 @@ const NotesTable = () => {
     // Handle sorting logic based on the selected option
     // You can implement the sorting functionality here
   };
+
+  const { currentPage, totalPages, notes } = tableData;
 
   return (
     <div className="mt-10">
@@ -56,27 +59,35 @@ const NotesTable = () => {
           </tr>
         </thead>
         <tbody className="bg-white divide-y divide-gray-200">
-          <tr className="border-b hover:bg-gray-50">
-            <td className="px-6 py-4">
-              <div className="text-sm text-gray-900">This is a note title</div>
-            </td>
-            <td className="px-6 py-4">
-              <div className="text-sm text-gray-900">Description</div>
-            </td>
-            <td className="px-6 py-4">
-              <div className="text-sm text-gray-900">Tomorrow</div>
-            </td>
-            <td className="px-6 py-4">
-              <div className="text-sm text-gray-900">
-                <span className="flex">
-                  Details
-                  <FiInfo className="ml-2" />
-                </span>
-              </div>
-            </td>
-          </tr>
+          {notes.map((note: any) => (
+            <tr key={note.id}>
+              <td className="px-6 py-4">
+                <div className="text-sm text-gray-900">{note.title}</div>
+              </td>
+              <td className="px-6 py-4">
+                <div className="text-sm text-gray-900">{note.content}</div>
+              </td>
+              <td className="px-6 py-4">
+                <div className="text-sm text-gray-900">{note.createdAt}</div>
+              </td>
+              <td className="px-6 py-4">
+                <div className="text-sm text-gray-900">
+                  <span className="flex">
+                    Details
+                    <FiInfo className="ml-2" />
+                  </span>
+                </div>
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
+
+      {/* Pagination */}
+      <Pagination
+        data={tableData}
+        handlePaginationChange={handlePaginationChange}
+      />
     </div>
   );
 };
