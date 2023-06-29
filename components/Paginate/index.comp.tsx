@@ -11,7 +11,7 @@ const Pagination = ({ data, handlePaginationChange }: any) => {
           key={i}
           className={`px-3 py-2 mx-1 rounded-lg ${
             i === currentPage
-              ? "bg-blue-500 text-white"
+              ? "bg-gradient-to-br from-pink-500 to-orange-400   text-white"
               : "bg-gray-200 text-gray-700"
           }`}
           onClick={handlePageNumberClick(i)}
@@ -24,19 +24,19 @@ const Pagination = ({ data, handlePaginationChange }: any) => {
   };
 
   const handlePreviousClick = useCallback(() => {
-    handlePaginationChange(currentPage - 1, 1);
+    handlePaginationChange(currentPage - 1);
   }, [currentPage, handlePaginationChange]);
 
   const handleNextClick = useCallback(() => {
     if (currentPage >= totalPages) {
       return;
     }
-    handlePaginationChange(currentPage + 1, 1);
+    handlePaginationChange(currentPage + 1);
   }, [currentPage, handlePaginationChange, totalPages]);
 
   const handlePageNumberClick = useCallback(
     (pageNumber: number) => () => {
-      handlePaginationChange(pageNumber, 1);
+      handlePaginationChange(pageNumber);
     },
     [handlePaginationChange]
   );
@@ -44,7 +44,7 @@ const Pagination = ({ data, handlePaginationChange }: any) => {
   return (
     <div className="flex justify-center mt-5">
       <button
-        className="px-4 py-2 mx-1 bg-gray-200 rounded-lg"
+        className="px-4 py-2 mx-1 bg-gray-200 rounded-lg "
         disabled={currentPage === 1}
         onClick={handlePreviousClick}
       >

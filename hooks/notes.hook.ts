@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 export const useGetNotes = () => {
   let pagination = {
     page: 1,
-    limit: 1,
+    limit: 5,
   };
   const { data, isLoading, refetch } = useQuery({
     retry: 0,
@@ -14,7 +14,7 @@ export const useGetNotes = () => {
     keepPreviousData: true,
   });
 
-  const handlePaginationChange = (page: number, limit = 1) => {
+  const handlePaginationChange = (page: number, limit = 5) => {
     pagination.page = page;
     pagination.limit = limit;
     refetch();
