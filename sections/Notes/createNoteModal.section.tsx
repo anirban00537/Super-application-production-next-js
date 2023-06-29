@@ -1,0 +1,91 @@
+import LabelMedium from "@/components/Label/LabelMedium.comp";
+import ModalElement from "@/components/Modal/index.comp";
+import { Button, Label, TextInput } from "flowbite-react";
+import React, { useRef, useState } from "react";
+
+const CreateNoteModal = () => {
+  const titleRef = useRef<HTMLInputElement>(null);
+  const tagsRef = useRef<HTMLInputElement>(null);
+  const [tagsList, setTags] = useState<string[]>([]);
+
+  const handleAddTag = () => {
+    const tag = tagsRef.current?.value?.toString();
+    if (tag) {
+      setTags([...tagsList, tag]);
+      tagsRef.current!.value = "";
+    }
+  };
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const title = titleRef.current?.value;
+
+    // Reset form fields
+    titleRef.current!.value = "";
+    tagsRef.current!.value = "";
+    // tagsListRef.current!.innerHTML = "";
+  };
+
+  return (
+    <div>
+      <ModalElement buttonTitle="Create A New Note">
+        <div className="space-y-6">
+          <h3 className="text-xl font-medium text-gray-900 dark:text-white">
+            Create a New Note
+          </h3>
+          <form onSubmit={handleSubmit}>
+            <div>
+              <div className="mb-2 block">
+                <Label htmlFor="title" value="Title" />
+              </div>
+              <input
+                id="title"
+                type="text"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                ref={titleRef}
+                placeholder="Enter note title"
+                required
+              />
+            </div>
+            <div>
+              <div className="mb-2 block">
+                <Label htmlFor="tags" value="Tags" />
+              </div>
+              <div className="flex justify-between">
+                <input
+                  id="tags"
+                  type="text"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  ref={tagsRef}
+                  placeholder="Enter a tag"
+                  required
+                />
+                <button
+                  className="bg-gradient-to-br from-purple-500 to-orange-400 p-2 text-white ml-2 rounded-md text-base"
+                  type="button"
+                  onClick={handleAddTag}
+                >
+                  Add
+                </button>
+              </div>
+              <div className="mt-5">
+                {tagsList.map((tag) => (
+                  <LabelMedium title={tag} />
+                ))}
+              </div>
+            </div>
+            <button
+              className="bg-gradient-to-br mt-5 from-red-500 to-orange-400 p-2 text-white w-full
+               rounded-md text-base"
+              type="submit"
+            >
+              Create Note
+            </button>
+          </form>
+        </div>
+      </ModalElement>
+    </div>
+  );
+};
+
+export default CreateNoteModal;
