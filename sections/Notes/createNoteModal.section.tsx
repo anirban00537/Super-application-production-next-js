@@ -1,34 +1,27 @@
 import LabelMedium from "@/components/Label/LabelMedium.comp";
 import ModalElement from "@/components/Modal/index.comp";
+import { useCreateNote } from "@/hooks/notes.hook";
 import { Button, Label, TextInput } from "flowbite-react";
 import React, { useRef, useState } from "react";
 
 const CreateNoteModal = () => {
-  const titleRef = useRef<HTMLInputElement>(null);
-  const tagsRef = useRef<HTMLInputElement>(null);
-  const [tagsList, setTags] = useState<string[]>([]);
-
-  const handleAddTag = () => {
-    const tag = tagsRef.current?.value?.toString();
-    if (tag) {
-      setTags([...tagsList, tag]);
-      tagsRef.current!.value = "";
-    }
-  };
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    const title = titleRef.current?.value;
-
-    // Reset form fields
-    titleRef.current!.value = "";
-    tagsRef.current!.value = "";
-    // tagsListRef.current!.innerHTML = "";
-  };
+  const {
+    handleAddTag,
+    handleSubmit,
+    setOpenModal,
+    openModal,
+    tagsList,
+    tagsRef,
+    titleRef,
+  } = useCreateNote();
 
   return (
     <div>
-      <ModalElement buttonTitle="Create A New Note">
+      <ModalElement
+        buttonTitle="Create A New Note"
+        openModal={openModal}
+        setOpenModal={setOpenModal}
+      >
         <div className="space-y-6">
           <h3 className="text-xl font-medium text-gray-900 dark:text-white">
             Create a New Note
@@ -58,7 +51,7 @@ const CreateNoteModal = () => {
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   ref={tagsRef}
                   placeholder="Enter a tag"
-                  required
+                  // required
                 />
                 <button
                   className="bg-gradient-to-br from-purple-500 to-orange-400 p-2 text-white ml-2 rounded-md text-base"

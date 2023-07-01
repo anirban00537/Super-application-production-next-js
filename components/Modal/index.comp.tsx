@@ -2,8 +2,7 @@
 
 import { Modal } from "flowbite-react";
 import { useState } from "react";
-export default function ModalElement({ children, buttonTitle }: any) {
-  const [openModal, setOpenModal] = useState<string | undefined>();
+export default function ModalElement({ children, buttonTitle, openModal, setOpenModal }: any) {
   const props = { openModal, setOpenModal };
 
   return (

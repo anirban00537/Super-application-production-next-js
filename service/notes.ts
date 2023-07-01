@@ -6,3 +6,16 @@ export const getAllNotes = async (page: number, limit: number) => {
   );
   return data;
 };
+
+export const createNote = async (
+  title: string,
+  content: string,
+  note_tags: string[]
+) => {
+  const { data } = await request.post(`/note/create`, {
+    title,
+    content: content ? content : "",
+    note_tags,
+  });
+  return data;
+};
