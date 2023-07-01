@@ -9,6 +9,9 @@ const Layout = () => {
       <PortfolioCard number={56} title="Total Portfolios" />
       <PortfolioCard number={56} title="Total Published Blogs" />
       <PortfolioCard number={56} title="Total blogs" />
+      <PortfolioCard number={56} title="Total blogs" />
+      <PortfolioCard number={56} title="Total blogs" />
+      <PortfolioCard number={56} title="Total blogs" />
       <PortfolioCard number={56} title="Total notes" />
       <PortfolioCard number={56} title="Total Journals" />
     </div>
