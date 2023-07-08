@@ -4,6 +4,9 @@ import DataTable from "@/components/Table/dataTable.comp";
 import React, { useMemo } from "react";
 import CreateNoteModal from "./createNoteModal.section";
 import { FaInfoCircle, FaEdit } from "react-icons/fa";
+import Link from "next/link";
+import { ATC, AgoTime } from "@/utils/functions";
+import { Cell } from "react-table";
 
 const NotesTable = ({ tableData, handlePaginationChange }: any) => {
   const { notes } = tableData;
@@ -14,24 +17,30 @@ const NotesTable = ({ tableData, handlePaginationChange }: any) => {
         accessor: "title",
       },
       {
-        Header: "Description",
-        accessor: "content",
+        Header: "Last Updated At",
+        Cell: (cellValue: Cell) => (
+          <span className="">{AgoTime(ATC(cellValue).updatedAt)}</span>
+        ),
       },
       {
         Header: "Created at",
-        accessor: "createdAt",
+        Cell: (cellValue: Cell) => (
+          <span className="">{AgoTime(ATC(cellValue).createdAt)}</span>
+        ),
       },
       {
         Header: "Action",
-        Cell: () => (
+        Cell: (cellValue: Cell) => (
           <div className="flex">
-            <button
-              type="button"
-              className="px-3 py-2 text-xs font-medium text-center text-white bg-gradient-to-br from-red-500 to-orange-400 rounded-lg hover:bg-red-500 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-orange-400 dark:focus:ring-blue-800 flex"
-            >
-              <FaInfoCircle className="mr-1" />
-              Details
-            </button>
+            <Link href={`/dashboard/notes/${ATC(cellValue).id}`}>
+              <button
+                type="button"
+                className="px-3 py-2 text-xs font-medium text-center text-white bg-gradient-to-br from-red-500 to-orange-400 rounded-lg hover:bg-red-500 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-orange-400 dark:focus:ring-blue-800 flex"
+              >
+                <FaInfoCircle className="mr-1" />
+                Details
+              </button>
+            </Link>
             <button
               type="button"
               className="px-3 py-2 text-xs font-medium text-center text-white bg-gradient-to-br from-red-500 to-orange-400 rounded-lg hover:bg-red-500 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-orange-400 dark:focus:ring-blue-800 ml-2 flex"
@@ -45,7 +54,6 @@ const NotesTable = ({ tableData, handlePaginationChange }: any) => {
     ],
     []
   );
-
   return (
     <div>
       <div className="flex justify-center">

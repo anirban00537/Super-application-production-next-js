@@ -21,6 +21,6 @@ export const createNote = async (
 };
 //
 export const noteDetails = async (note_id: string) => {
-  const { data } = await request.get(`/details/${note_id}`);
+  const { data } = await request.get(`/note/details/${note_id}`);
   return data;
 };

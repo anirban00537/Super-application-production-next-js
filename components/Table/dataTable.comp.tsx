@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useTable, useSortBy, useGlobalFilter } from "react-table";
 import Pagination from "../Paginate/index.comp";
 import { FiChevronDown, FiChevronUp } from "react-icons/fi";
+import { DataTableProps } from "@/types";
 
 const DataTable = ({
   columns,
@@ -10,7 +11,7 @@ const DataTable = ({
   dataWithPagination,
   handlePaginationChange,
   search = true,
-}: any) => {
+}: DataTableProps) => {
   // Create an instance of the table
   const {
     getTableProps,
@@ -23,6 +24,7 @@ const DataTable = ({
     setGlobalFilter,
   } = useTable(
     {
+      //@ts-ignore
       columns,
       data: data,
     },

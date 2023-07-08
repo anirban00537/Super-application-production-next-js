@@ -1,8 +1,18 @@
 "use client";
 
 import { Modal } from "flowbite-react";
-import { useState } from "react";
-export default function ModalElement({ children, buttonTitle, openModal, setOpenModal }: any) {
+import { useState, Dispatch, SetStateAction, ReactNode } from "react";
+export default function ModalElement({
+  children,
+  buttonTitle,
+  openModal,
+  setOpenModal,
+}: {
+  buttonTitle: string;
+  openModal: string | undefined;
+  setOpenModal: Dispatch<SetStateAction<string | undefined>>;
+  children: ReactNode;
+}) {
   const props = { openModal, setOpenModal };
 
   return (
