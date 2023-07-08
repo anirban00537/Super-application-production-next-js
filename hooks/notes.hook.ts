@@ -1,5 +1,6 @@
-import { getAllNotes, createNote } from "@/service/notes";
+import { getAllNotes, createNote, noteDetails } from "@/service/notes";
 import { useMutation, useQuery } from "@tanstack/react-query";
+import { useRouter } from "next/router";
 import { useEffect, useState, useRef } from "react";
 import { toast } from "react-toastify";
 
@@ -69,4 +70,16 @@ export const useCreateNote = () => {
     setOpenModal,
     openModal,
   };
+};
+
+export const useGetDetails = (id: number) => {
+  const { data, isLoading, refetch } = useQuery({
+    retry: 0,
+    queryKey: ["get-note-details"],
+    queryFn: () => noteDetails(String(id)),
+    // keepPreviousData: true,
+    enabled: id ? true : false,
+  });
+
+  return { data };
 };
