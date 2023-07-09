@@ -1,3 +1,56 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Merriweather+Sans:wght@400;600&display=swap');
+body {
+  margin: 0;
+  font-family: 'Merriweather Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  height: 100vh;
+  color: #222f3e;
+}
+ol,
+ul,
+menu {
+  list-style: disc;
+  margin: 0;
+  padding: revert;
+  margin-top: 5px !important;
+}
+.remirror-theme .ProseMirror {
+  min-height: var(--rmr-space-6);
+  box-shadow: none !important;
+  padding: var(--rmr-space-3);
+  border-radius: var(--rmr-radius-border);
+  outline: none;
+  height: 90vh;
+  overflow: hidden;
+}
+theme .ProseMirror:focus {
+  box-shadow: none !important;
+}
+div {
+  overflow: -moz-scrollbars-none;
+}
+
+div::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  background: transparent;
+}
+
+.custom-timeline ol li {
+  list-style: none;
+  margin-left: 0;
+}
+.custom-timeline {
+  list-style: none;
+  margin-left: 0;
+}
+.document-width{
+  width: 1000px;
+}
+.css-15feu8x .remirror-theme .ProseMirror{
+  padding: 0px !important;
+}

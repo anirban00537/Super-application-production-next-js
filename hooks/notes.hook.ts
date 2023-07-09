@@ -1,4 +1,10 @@
-import { getAllNotes, createNote, noteDetails } from "@/service/notes";
+import {
+  getAllNotes,
+  createNote,
+  noteDetails,
+  updateNoteService,
+} from "@/service/notes";
+import { noteType } from "@/types";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useSearchParams, useParams } from "next/navigation";
 import { useEffect, useState, useRef } from "react";
@@ -72,10 +78,14 @@ export const useCreateNote = () => {
   };
 };
 export const useNoteEditor = () => {
-  const updateNote = async (id: any, content: any) => {
-    // const noteRef = doc(db, "notes", id);
-    console.log(content, "content");
-    // await updateDoc(noteRef, { content: content });
+  const updateNoteMutation = useMutation((payload: noteType) =>
+    updateNoteService(payload)
+  );
+  const updateNote = async (payload: noteType) => {
+    const response = await updateNoteMutation.mutateAsync(payload);
+    if (response.success) {
+      toast.success(response.message);
+    }
   };
   return { updateNote };
 };

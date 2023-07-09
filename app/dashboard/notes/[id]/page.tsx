@@ -9,7 +9,7 @@ const Page = () => {
   console.log(noteDetails, "This is data");
   return (
     <div className="p-4 sm:ml-64">
-      <div className="max-w-6xl mx-auto p-6 bg-white rounded-lg  mt-16">
+      <div className="max-w-6xl mx-auto p-6 bg-white rounded-lg  mt-2">
         <EditorSection notesDetails={noteDetails} />
       </div>
     </div>

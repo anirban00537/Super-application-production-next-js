@@ -70,7 +70,8 @@ const THREE_COLUMNS: ColumnAttributes = {
 };
 const EditorSection = ({ notesDetails, id }: any): JSX.Element => {
   const { updateNote } = useNoteEditor();
-  const [content, setContent] = useState(notesDetails?.content);
+  const [detailsState, setDetailsState] = useState(notesDetails);
+  // const [content, setContent] = useState(notesDetails?.content);
   const [value] = useDebounce(content, 1500);
   const extensions = useCallback(
     () => [
@@ -102,8 +103,11 @@ const EditorSection = ({ notesDetails, id }: any): JSX.Element => {
     []
   );
   useEffect(() => {
-    updateNote(id, value);
+    updateNote(detailsState);
   }, [value]);
+  useEffect(() => {
+    setDetailsState(notesDetails);
+  }, [notesDetails]);
   const { manager, state } = useRemirror({
     extensions,
     content: notesDetails?.content ? notesDetails?.content : content,
@@ -143,7 +147,10 @@ const EditorSection = ({ notesDetails, id }: any): JSX.Element => {
                   // setTimeout(() => {
                   //   updateNote(id, e);
                   // }, 1000);
-                  setContent(e);
+                  setDetailsState({
+                    ...detailsState,
+                    content: e,
+                  });
                 }}
               />
 
