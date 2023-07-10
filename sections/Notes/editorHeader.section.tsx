@@ -3,7 +3,6 @@ import {  noteType, tagType } from "@/types";
 import React from "react";
 
 const EditorHeader = ({ notesDetails }: { notesDetails: noteType }) => {
-  console.log(notesDetails, "notesDetails");
   return (
     <div className="mb-6">
       <div className="mb-5 flex items-center justify-center">
