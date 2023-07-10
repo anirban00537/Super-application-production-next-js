@@ -103,7 +103,10 @@ const EditorSection = ({ notesDetails, id }: any): JSX.Element => {
     []
   );
   useEffect(() => {
-    updateNote(detailsState);
+    if (detailsState && value) {
+      console.log(value, "value");
+      updateNote(detailsState);
+    }
   }, [value]);
   useEffect(() => {
     setDetailsState(notesDetails);

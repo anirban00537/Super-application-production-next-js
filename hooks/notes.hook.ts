@@ -82,7 +82,13 @@ export const useNoteEditor = () => {
     updateNoteService(payload)
   );
   const updateNote = async (payload: noteType) => {
-    const response = await updateNoteMutation.mutateAsync(payload);
+    let updatedNote = {
+      id: payload.id,
+      note_tags: payload.note_tags,
+      title: payload.title,
+    };
+
+    const response = await updateNoteMutation.mutateAsync(updatedNote);
     if (response.success) {
       toast.success(response.message);
     }
