@@ -71,8 +71,8 @@ const THREE_COLUMNS: ColumnAttributes = {
 const EditorSection = ({ notesDetails, id }: any): JSX.Element => {
   const { updateNote } = useNoteEditor();
   const [detailsState, setDetailsState] = useState(notesDetails);
-  const [content, setContent] = useState();
-  const [value] = useDebounce(content, 1500);
+  const [contentValue, setContent] = useState();
+  const [value] = useDebounce(contentValue, 1500);
   const extensions = useCallback(
     () => [
       new HeadingExtension(),
@@ -105,14 +105,13 @@ const EditorSection = ({ notesDetails, id }: any): JSX.Element => {
   useEffect(() => {
     console.log(value, "value");
     if (detailsState?.id && value) {
-      setDetailsState({ ...detailsState, content: value });
-      updateNote(detailsState);
+      updateNote(detailsState, value);
     }
   }, [value]);
   useEffect(() => {
     setDetailsState(notesDetails);
   }, [notesDetails]);
-  const { manager, state } = useRemirror({
+   const { manager, state } = useRemirror({
     extensions,
     content: notesDetails?.content ? notesDetails?.content : content,
     selection: "end",
@@ -122,7 +121,6 @@ const EditorSection = ({ notesDetails, id }: any): JSX.Element => {
   return (
     <div className="m-5">
       <EditorHeader notesDetails={notesDetails} />
-      {JSON.stringify(detailsState)}
       <AllStyledComponent>
         <ThemeProvider>
           <Remirror
@@ -145,22 +143,12 @@ const EditorSection = ({ notesDetails, id }: any): JSX.Element => {
               <ToggleColumnsButton attrs={THREE_COLUMNS} />
               <FontFamilyButtons />
               <InsertHorizontalRuleButton />
-              {/* <DecreaseFontSizeButton /> */}
               <OnChangeJSON
                 onChange={(e: any) => {
-                  // setTimeout(() => {
-                  //   updateNote(id, e);
-                  // }, 1000);
-                  // setDetailsState({
-                  //   ...detailsState,
-                  //   content: e,
-                  // });
                   setContent(e);
                 }}
               />
-
               <CmdMenu />
-              {/* <CreateTableButton /> */}
             </Toolbar>
           </Remirror>
         </ThemeProvider>

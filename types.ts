@@ -15,6 +15,12 @@ export interface updateNoteType {
   content: object;
   note_tags: tagType[];
 }
+export interface updateNoteType {
+  id: number;
+  title: string;
+  content: object;
+  note_tags: tagType[];
+}
 
 export interface tagType {
   id: number;

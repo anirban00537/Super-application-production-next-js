@@ -5,11 +5,11 @@ import { useRouter, useSearchParams } from "next/navigation";
 import React from "react";
 
 const Page = () => {
-  const {  noteDetails } = useGetDetails();
+  const { noteDetails } = useGetDetails();
   return (
     <div className="p-4 sm:ml-64">
       <div className="max-w-6xl mx-auto p-6 bg-white rounded-lg  mt-2">
-        <EditorSection notesDetails={noteDetails} />
+        {noteDetails?.id && <EditorSection notesDetails={noteDetails} />}
       </div>
     </div>
   );
