@@ -35,7 +35,7 @@ export const useSignin = () => {
       const response = await mutateAsync({ email, password });
       processResponse(response);
       if (response.success) {
-        router.push("/dashboard");
+        router.push("/notes");
         Cookies.set("token", response?.data?.accessToken);
       }
     } catch (error) {

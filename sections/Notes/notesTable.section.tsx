@@ -32,7 +32,7 @@ const NotesTable = ({ tableData, handlePaginationChange }: any) => {
         Header: "Action",
         Cell: (cellValue: Cell) => (
           <div className="flex">
-            <Link href={`/dashboard/notes/${ATC(cellValue).id}`}>
+            <Link href={`/notes/${ATC(cellValue).id}`}>
               <button
                 type="button"
                 className="px-3 py-2 text-xs font-medium text-center text-white bg-gradient-to-br from-red-500 to-orange-400 rounded-lg hover:bg-red-500 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-orange-400 dark:focus:ring-blue-800 flex"
