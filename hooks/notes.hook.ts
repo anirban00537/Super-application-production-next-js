@@ -4,8 +4,14 @@ import {
   noteDetails,
   updateNoteService,
 } from "@/service/notes";
-import { noteType, updateNoteType } from "@/types";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { noteDataType, noteType, tagsCreateType, updateNoteType } from "@/types";
+import {
+  QueryObserverResult,
+  RefetchOptions,
+  RefetchQueryFilters,
+  useMutation,
+  useQuery,
+} from "@tanstack/react-query";
 import { useSearchParams, useParams } from "next/navigation";
 import { useEffect, useState, useRef } from "react";
 import { toast } from "react-toastify";
@@ -28,34 +34,49 @@ export const useGetNotes = () => {
     refetch();
   };
 
-  return { data, isLoading, handlePaginationChange };
+  return { data, isLoading, handlePaginationChange, refetch };
 };
 
-export const useCreateNote = () => {
+export const useCreateNote = (
+  refetch: <TPageData>(
+    options?: (RefetchOptions & RefetchQueryFilters<TPageData>) | undefined
+  ) => Promise<QueryObserverResult<any, unknown>>
+) => {
   const titleRef = useRef<HTMLInputElement>(null);
   const tagsRef = useRef<HTMLInputElement>(null);
-  const [tagsList, setTags] = useState<string[]>([]);
+  const [tagsList, setTags] = useState<tagsCreateType[]>([]);
   const [openModal, setOpenModal] = useState<string | undefined>();
-
+  const initialID = 0;
   const handleAddTag = () => {
     const tag = tagsRef.current?.value?.toString();
     if (tag) {
-      setTags([...tagsList, tag]);
+      setTags([...tagsList, { title: tag, id: initialID }]);
       tagsRef.current!.value = "";
     }
   };
+  const handleRemove = () => {
 
-  const createNoteMutation = useMutation(
-    (noteData: { title: string; tagsList: string[] }) =>
-      createNote(noteData.title, "", noteData.tagsList)
+  };
+
+  const createNoteMutation = useMutation((noteData: noteDataType) =>
+    createNote(noteData.title, "", noteData.tagsList)
   );
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const preparedlist: string[]=[];
+    tagsList.map((item: any) => {
+      preparedlist.push(item.title);
+    });
 
     const title = titleRef.current?.value ?? "";
-    const response = await createNoteMutation.mutateAsync({ title, tagsList });
+    const response = await createNoteMutation.mutateAsync({
+      title,
+      tagsList: preparedlist,
+    });
     if (response.success) {
+      refetch();
+      setTags([]);
       toast.success(response.message);
     }
 
@@ -75,7 +96,8 @@ export const useCreateNote = () => {
     createNoteMutation,
     setOpenModal,
     openModal,
-};
+    handleRemove,
+  };
 };
 export const useNoteEditor = () => {
   const updateNoteMutation = useMutation((payload: updateNoteType) =>

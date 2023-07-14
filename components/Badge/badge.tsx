@@ -1,6 +1,12 @@
 import React from "react";
 
-const Badge = ({ title }: { title: string }) => {
+const Badge = ({
+  title,
+  handleRemove,
+}: {
+  title: string;
+  handleRemove: Function;
+}) => {
   return (
     <span
       id="badge-dismiss-gray"
@@ -12,6 +18,9 @@ const Badge = ({ title }: { title: string }) => {
         className="ml-2 inline-flex items-center rounded-sm bg-transparent p-0.5 text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-800 dark:hover:text-gray-300"
         data-dismiss-target="#badge-dismiss-gray"
         aria-label="Remove"
+        onClick={() => {
+          handleRemove();
+        }}
       >
         <svg
           aria-hidden="true"

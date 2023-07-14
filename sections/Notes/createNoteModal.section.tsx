@@ -1,10 +1,22 @@
 import LabelMedium from "@/components/Label/LabelMedium.comp";
 import ModalElement from "@/components/Modal/index.comp";
 import { useCreateNote } from "@/hooks/notes.hook";
-import { Button, Label, TextInput } from "flowbite-react";
-import React, { useRef, useState } from "react";
+import { tagsCreateType } from "@/types";
+import {
+  QueryObserverResult,
+  RefetchOptions,
+  RefetchQueryFilters,
+} from "@tanstack/react-query";
+import { Label } from "flowbite-react";
+import React from "react";
 
-const CreateNoteModal = () => {
+const CreateNoteModal = ({
+  refetch,
+}: {
+  refetch: <TPageData>(
+    options?: (RefetchOptions & RefetchQueryFilters<TPageData>) | undefined
+  ) => Promise<QueryObserverResult<any, unknown>>;
+}) => {
   const {
     handleAddTag,
     handleSubmit,
@@ -13,7 +25,8 @@ const CreateNoteModal = () => {
     tagsList,
     tagsRef,
     titleRef,
-  } = useCreateNote();
+    handleRemove,
+  } = useCreateNote(refetch);
 
   return (
     <div>
@@ -62,8 +75,8 @@ const CreateNoteModal = () => {
                 </button>
               </div>
               <div className="mt-5">
-                {tagsList.map((tag) => (
-                  <LabelMedium title={tag} />
+                {tagsList.map((tag: tagsCreateType) => (
+                  <LabelMedium title={tag.title} handleRemove={handleRemove} />
                 ))}
               </div>
             </div>

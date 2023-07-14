@@ -9,6 +9,10 @@ export interface noteType {
   userId: number;
   note_tags: tagType[];
 }
+export type noteDataType = {
+  title: string;
+  tagsList: string[];
+};
 export interface updateNoteType {
   id: number;
   title: string;
@@ -21,7 +25,14 @@ export interface updateNoteType {
   content: object;
   note_tags: tagType[];
 }
-
+export type labelMediumType = {
+  title: any;
+  handleRemove: any;
+};
+export type tagsCreateType = {
+  id: number;
+  title: string;
+};
 export interface tagType {
   id: number;
   title: string;
