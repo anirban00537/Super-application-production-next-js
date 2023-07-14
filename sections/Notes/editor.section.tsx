@@ -69,7 +69,7 @@ const THREE_COLUMNS: ColumnAttributes = {
   count: 3,
 };
 const EditorSection = ({ notesDetails, id }: any): JSX.Element => {
-  const { updateNote } = useNoteEditor();
+  const { updateNote, updateNoteTitle } = useNoteEditor();
   const [detailsState, setDetailsState] = useState(notesDetails);
   const [contentValue, setContent] = useState();
   const [value] = useDebounce(contentValue, 1500);
@@ -103,7 +103,6 @@ const EditorSection = ({ notesDetails, id }: any): JSX.Element => {
     []
   );
   useEffect(() => {
-    console.log(value, "value");
     if (detailsState?.id && value) {
       updateNote(detailsState, value);
     }
@@ -111,7 +110,7 @@ const EditorSection = ({ notesDetails, id }: any): JSX.Element => {
   useEffect(() => {
     setDetailsState(notesDetails);
   }, [notesDetails]);
-   const { manager, state } = useRemirror({
+  const { manager, state } = useRemirror({
     extensions,
     content: notesDetails?.content ? notesDetails?.content : content,
     selection: "end",
@@ -120,7 +119,12 @@ const EditorSection = ({ notesDetails, id }: any): JSX.Element => {
 
   return (
     <div className="m-5">
-      <EditorHeader notesDetails={notesDetails} />
+      {notesDetails?.title && (
+        <EditorHeader
+          notesDetails={notesDetails}
+          updateNoteTitle={updateNoteTitle}
+        />
+      )}
       <AllStyledComponent>
         <ThemeProvider>
           <Remirror

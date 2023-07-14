@@ -1,4 +1,4 @@
-import { noteType, updateNoteType } from "@/types";
+import { noteType, updateNoteTitleType, updateNoteType } from "@/types";
 import request from "@/utils/request";
 
 export const getAllNotes = async (page: number, limit: number) => {
@@ -27,5 +27,9 @@ export const noteDetails = async (note_id: string) => {
 };
 export const updateNoteService = async (payload: updateNoteType) => {
   const { data } = await request.post(`/note/update`, payload);
+  return data;
+};
+export const updateNoteTitleService = async (payload: updateNoteTitleType) => {
+  const { data } = await request.post(`/note/update-note-title`, payload);
   return data;
 };

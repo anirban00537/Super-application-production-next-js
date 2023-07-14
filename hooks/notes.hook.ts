@@ -3,8 +3,15 @@ import {
   createNote,
   noteDetails,
   updateNoteService,
+  updateNoteTitleService,
 } from "@/service/notes";
-import { noteDataType, noteType, tagsCreateType, updateNoteType } from "@/types";
+import {
+  noteDataType,
+  noteType,
+  tagsCreateType,
+  updateNoteTitleType,
+  updateNoteType,
+} from "@/types";
 import {
   QueryObserverResult,
   RefetchOptions,
@@ -54,17 +61,14 @@ export const useCreateNote = (
       tagsRef.current!.value = "";
     }
   };
-  const handleRemove = () => {
-
-  };
+  const handleRemove = () => {};
 
   const createNoteMutation = useMutation((noteData: noteDataType) =>
     createNote(noteData.title, "", noteData.tagsList)
   );
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const preparedlist: string[]=[];
+    const preparedlist: string[] = [];
     tagsList.map((item: any) => {
       preparedlist.push(item.title);
     });
@@ -103,6 +107,9 @@ export const useNoteEditor = () => {
   const updateNoteMutation = useMutation((payload: updateNoteType) =>
     updateNoteService(payload)
   );
+  const updateNoteTitleMutation = useMutation((payload: updateNoteTitleType) =>
+    updateNoteTitleService(payload)
+  );
   const updateNote = async (payload: updateNoteType, value: object) => {
     let updatedNote = {
       id: payload.id,
@@ -116,7 +123,19 @@ export const useNoteEditor = () => {
       toast.success(response.message);
     }
   };
-  return { updateNote };
+  const updateNoteTitle = async (id: number, title: string) => {
+    let updatedNote = {
+      id: id,
+      title: title,
+    };
+
+    const response = await updateNoteTitleMutation.mutateAsync(updatedNote);
+    if (response.success) {
+      toast.success(response.message);
+    }
+  };
+
+  return { updateNote, updateNoteTitle };
 };
 export const useGetDetails = () => {
   const params = useParams();

@@ -25,6 +25,11 @@ export interface updateNoteType {
   content: object;
   note_tags: tagType[];
 }
+
+export type updateNoteTitleType = {
+  id: number;
+  title: any;
+};
 export type labelMediumType = {
   title: any;
   handleRemove: any;

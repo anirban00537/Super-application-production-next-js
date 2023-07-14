@@ -1,8 +1,22 @@
 import Badge from "@/components/Badge/badge";
-import {  noteType, tagType } from "@/types";
-import React from "react";
+import { noteType, tagType } from "@/types";
+import React, { useEffect, useState } from "react";
+import { useDebounce } from "use-debounce";
 
-const EditorHeader = ({ notesDetails }: { notesDetails: noteType }) => {
+const EditorHeader = ({
+  notesDetails,
+  updateNoteTitle,
+}: {
+  notesDetails: noteType;
+  updateNoteTitle: any;
+}) => {
+  const [title, setTitle] = useState(notesDetails?.title);
+  const [value] = useDebounce(title, 1500);
+  useEffect(() => {
+    if (notesDetails?.id && value) {
+      updateNoteTitle(notesDetails?.id, value);
+    }
+  }, [value]);
   return (
     <div className="mb-6">
       <div className="mb-5 flex items-center justify-center">
@@ -10,7 +24,10 @@ const EditorHeader = ({ notesDetails }: { notesDetails: noteType }) => {
           type="text"
           id="default-input"
           className="m-0  block w-full rounded-lg border-0 p-0 text-xl mr-2 text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-          value={`${notesDetails?.title}`}
+          value={title}
+          onChange={(e) => {
+            setTitle(e.target.value);
+          }}
         />
         <button
           type="button"
