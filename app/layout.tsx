@@ -9,6 +9,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 const inter = Inter({ subsets: ["latin"] });
 import "flowbite/dist/flowbite.css";
 import { Providers } from "@/state/provider";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
 import Layout from "@/layout";
 
 // export const metadata = {
@@ -27,12 +29,11 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <ToastContainer />
-
-        <Providers>
-          <QueryClientProvider client={queryClient}>
+        <QueryClientProvider client={queryClient}>
+          <Providers>
             <Layout>{children}</Layout>
-          </QueryClientProvider>
-        </Providers>
+          </Providers>
+        </QueryClientProvider>
       </body>
     </html>
   );

@@ -1,4 +1,9 @@
+import moment from "moment";
 import { toast } from "react-toastify";
+
+export const AgoTime = (time: string) => {
+ return moment(time).startOf("hour").fromNow();
+};
 
 export const processResponse = (response: any) => {
   if (response.message && response.success) {
@@ -58,3 +63,6 @@ export async function getServerSideProps(context: any) {
     props: {},
   };
 }
+
+//access table cell
+export const ATC = (cellValue: any) => cellValue.row.original;
