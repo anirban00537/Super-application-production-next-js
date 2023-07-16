@@ -9,7 +9,6 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 const inter = Inter({ subsets: ["latin"] });
 import "flowbite/dist/flowbite.css";
 import { Providers } from "@/state/provider";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import Layout from "@/layout";
 
@@ -23,8 +22,7 @@ export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
-  }) {
-  
+}) {
   return (
     <html lang="en">
       <body className={inter.className}>
