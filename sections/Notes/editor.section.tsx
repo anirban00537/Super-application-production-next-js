@@ -57,6 +57,7 @@ import { useDebounce } from "use-debounce";
 // import EditorHeader from "../EditorHeader";
 import { useNoteEditor } from "@/hooks/notes.hook";
 import EditorHeader from "./editorHeader.section";
+import ImagePicker from "@/components/ImagePicker/image-picker-note-details";
 const TWO_COLUMNS: ColumnAttributes = {
   count: 2,
   fill: "balance",
@@ -125,6 +126,7 @@ const EditorSection = ({ notesDetails, id }: any): JSX.Element => {
           updateNoteTitle={updateNoteTitle}
         />
       )}
+      <ImagePicker />
       <AllStyledComponent>
         <ThemeProvider>
           <Remirror

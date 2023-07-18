@@ -123,7 +123,7 @@ export const useNoteEditor = () => {
       toast.success(response.message);
     }
   };
-  const removeTag=()
+  // const removeTag=()
   const updateNoteTitle = async (id: number, title: string) => {
     let updatedNote = {
       id: id,
